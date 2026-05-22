@@ -1,5 +1,5 @@
 name: a11_moldispora_tubes_pcd
-description: "A new Flutter project."
+description: "MoldiSpora - Indoor Mold Detection App using Edge AI (YOLOv8 + TFLite)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -35,9 +35,25 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  # --- HARDWARE & AI INFERENCE ---
+  camera: ^0.11.0 # Required to access the native Camera2 API
+  tflite_flutter: ^0.12.0
+  image: ^4.1.7 # Critical for PCD pipeline (resizing matrices, extracting HSV, float32 conversion)
+
+  # --- OFFLINE-FIRST PERSISTENCE ---
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_dotenv: ^5.1.0
+  get_it: ^7.6.0
+  
+  uuid: ^4.3.3
+  path_provider: ^2.1.2 # Required to locate the device's secure local directory for Hive
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.4.6
+  hive_generator: ^2.0.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -61,6 +77,11 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+  assets:
+    - assets/models/best_int8.tflite
+    - assets/models/labels.txt
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
